@@ -1,6 +1,6 @@
 .window {
   background-color: black;
-  height: 380px;
+  height: 380px; //this part has to be removed
   width: 580px;
   border-radius: 0.75rem;
   overflow: hidden;
@@ -38,5 +38,8 @@
           background-color: rgb(39, 136, 39);
         }
     }
+  }
+  .main-content{
+    height: 100%;
   }
 }
