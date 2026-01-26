@@ -4,6 +4,8 @@ import Doc from "./components/Doc";
 import Nav from "./components/Nav";
 import MacWindow from "./components/windows/MacWindow";
 import Github from "./components/windows/Github";
+import Notes from "./components/windows/Notes";
+import Resume from "./components/windows/Resume";
 
 const App = () => {
   return (
@@ -11,6 +13,8 @@ const App = () => {
       <Nav />
       <Doc />
       <Github />
+      <Notes />
+      <Resume />
     </main>
   )
 };

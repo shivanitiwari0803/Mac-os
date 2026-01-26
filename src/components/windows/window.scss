@@ -45,4 +45,11 @@
     flex: 1;
   overflow: auto;
   }
+  *::-webkit-scrollbar{
+    width: 5px;
+  }
+   *::-webkit-scrollbar-thumb{
+    background-color: #454343b9;
+    border-radius: 3px;
+   }
 }
