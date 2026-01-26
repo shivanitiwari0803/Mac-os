@@ -43,5 +43,15 @@
     "tags": ["Rust", "Clap", "Tokio", "System API"],
     "repoLink": "https://github.com/rust-lang/rust",
     "demoLink": null
-  }
+  },
+  {
+  "id": 6,
+  "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1000",
+  "title": "DevBoard - Project Management Dashboard",
+  "description": "A web-based dashboard for tracking tasks, milestones, and team progress with real-time updates and analytics.",
+  "tags": ["React", "Node.js", "Express", "MongoDB", "Chart.js"],
+  "repoLink": "https://github.com/facebook/react",
+  "demoLink": "https://example.com/devboard"
+}
+
 ]

@@ -5,14 +5,14 @@ import "./window.scss";
 const MacWindow = ({ children }) => {
   return (
     <Rnd
-      // default={{
-      //   width: '20vh',
-      //   height: '10vh',
-      //   x: 120,
-      //   y: 80,
-      //   overflow: "hidden",
-      // }}
-    >
+  default={{
+    width: '40%',
+    height: '40%',
+    x: 100,
+    y: 80,
+  }}
+>
+
       <div className="window">
         <div className="nav">
           <div className="dots">
