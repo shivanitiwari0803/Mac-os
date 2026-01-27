@@ -1,10 +1,8 @@
-.resume-window{
+.cli-window{
     height: 100%;
     overflow: auto;
-    
-    iframe{
-        width: 100%;
+
+    div[name="react-console-emulator"]{
         height: 100%;
     }
-     
 }

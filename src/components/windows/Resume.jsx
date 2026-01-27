@@ -6,7 +6,7 @@ const Resume = () => {
   return (
     <MacWindow>
         <div className="resume-window">
-            <iframe src="public/resume.pdf" frameborder="0"></iframe>
+            <iframe src="/resume.pdf" frameborder="0"></iframe>
         </div>
     </MacWindow>
   )
