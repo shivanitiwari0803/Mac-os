@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState } from "react";
 import { Rnd } from "react-rnd";
 import "./window.scss";
 
@@ -11,13 +11,9 @@ const MacWindow = ({
 }) => {
   const [mode, setMode] = useState("normal");
 
-  
-  const lastPos = useRef({
-    x: 150,
-    y: 100,
-    width,
-    height,
-  });
+  // ✅ State (NOT ref) – this is the key fix
+  const [position, setPosition] = useState({ x: 150, y: 100 });
+  const [size, setSize] = useState({ width, height });
 
   const getRndProps = () => {
     switch (mode) {
@@ -47,8 +43,8 @@ const MacWindow = ({
 
       default:
         return {
-          size: { width: lastPos.current.width, height: lastPos.current.height },
-          position: { x: lastPos.current.x, y: lastPos.current.y },
+          size,
+          position,
           disableDragging: false,
           enableResizing: true,
         };
@@ -67,27 +63,25 @@ const MacWindow = ({
     <Rnd
       bounds="window"
       {...getRndProps()}
-      onDragStop={(e, d) => {
+      onDragStop={(_, d) => {
         if (mode === "normal") {
-          lastPos.current.x = d.x;
-          lastPos.current.y = d.y;
+          setPosition({ x: d.x, y: d.y });
         }
       }}
-      onResizeStop={(e, dir, ref, delta, pos) => {
+      onResizeStop={(_, __, ref, ___, pos) => {
         if (mode === "normal") {
-          lastPos.current = {
+          setSize({
             width: ref.offsetWidth,
             height: ref.offsetHeight,
-            x: pos.x,
-            y: pos.y,
-          };
+          });
+          setPosition(pos);
         }
       }}
     >
       <div className={`window ${mode !== "normal" ? "maximized" : ""}`}>
         <div className="nav">
           <div className="dots">
-           
+            {/* Close */}
             <div
               className="dot red"
               data-title="Close"
@@ -96,16 +90,18 @@ const MacWindow = ({
               }
             />
 
-            
+            {/* Fullscreen */}
             <div
               className="dot yellow"
               data-title="Full Screen"
               onClick={() =>
-                setMode((m) => (m === "fullscreen" ? "normal" : "fullscreen"))
+                setMode((m) =>
+                  m === "fullscreen" ? "normal" : "fullscreen"
+                )
               }
             />
 
-            
+            {/* Split */}
             <div
               className="dot green"
               data-title="Split Screen"
