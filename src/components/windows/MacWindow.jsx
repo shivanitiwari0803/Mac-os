@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Rnd } from "react-rnd";
 import "./window.scss";
 
@@ -10,6 +10,14 @@ const MacWindow = ({
   setWindowState,
 }) => {
   const [mode, setMode] = useState("normal");
+
+  
+  const lastPos = useRef({
+    x: 150,
+    y: 100,
+    width,
+    height,
+  });
 
   const getRndProps = () => {
     switch (mode) {
@@ -25,17 +33,24 @@ const MacWindow = ({
         return {
           size: { width: "50%", height: "100%" },
           position: { x: 0, y: 0 },
+          disableDragging: true,
+          enableResizing: false,
         };
 
       case "right":
         return {
           size: { width: "50%", height: "100%" },
           position: { x: window.innerWidth / 2, y: 0 },
+          disableDragging: true,
+          enableResizing: false,
         };
 
       default:
         return {
-          size: { width, height },
+          size: { width: lastPos.current.width, height: lastPos.current.height },
+          position: { x: lastPos.current.x, y: lastPos.current.y },
+          disableDragging: false,
+          enableResizing: true,
         };
     }
   };
@@ -49,10 +64,30 @@ const MacWindow = ({
   };
 
   return (
-    <Rnd bounds="window" {...getRndProps()}>
+    <Rnd
+      bounds="window"
+      {...getRndProps()}
+      onDragStop={(e, d) => {
+        if (mode === "normal") {
+          lastPos.current.x = d.x;
+          lastPos.current.y = d.y;
+        }
+      }}
+      onResizeStop={(e, dir, ref, delta, pos) => {
+        if (mode === "normal") {
+          lastPos.current = {
+            width: ref.offsetWidth,
+            height: ref.offsetHeight,
+            x: pos.x,
+            y: pos.y,
+          };
+        }
+      }}
+    >
       <div className={`window ${mode !== "normal" ? "maximized" : ""}`}>
         <div className="nav">
           <div className="dots">
+           
             <div
               className="dot red"
               data-title="Close"
@@ -61,13 +96,12 @@ const MacWindow = ({
               }
             />
 
+            
             <div
               className="dot yellow"
               data-title="Full Screen"
               onClick={() =>
-                setMode((m) =>
-                  m === "fullscreen" ? "normal" : "fullscreen"
-                )
+                setMode((m) => (m === "fullscreen" ? "normal" : "fullscreen"))
               }
             />
 

@@ -12,7 +12,10 @@ const Doc = ({ windowState, setWindowState }) => {
       >
         <img src="/Doc -icons/calender.svg" alt="" />
       </div>
-      <div className="icon cli">
+      <div
+        className="icon cli"
+        onClick={() => setWindowState({ ...windowState, cli: true })}
+      >
         <img src="/Doc -icons/cli.svg" alt="" />
       </div>
       <div
